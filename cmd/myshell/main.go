@@ -8,15 +8,18 @@ import (
 )
 
 func main() {
-	fmt.Fprint(os.Stdout, "$ ")
-
+	finished := false
+	
 	// Wait for user input
-	command, err := bufio.NewReader(os.Stdin).ReadString('\n')
-	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error reading input:", err)
-		os.Exit(1)
+	for !finished{
+		fmt.Fprint(os.Stdout, "$ ")
+		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "Error reading input:", err)
+			os.Exit(1)
+		}
+		command = strings.TrimSpace(command) + ": command not found"
+		fmt.Println(command)
 	}
-	command = strings.TrimSpace(command) + ": command not found"
-	fmt.Println(command)
 
 }
