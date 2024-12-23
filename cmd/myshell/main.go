@@ -29,7 +29,7 @@ func main() {
 		}else if command == "echo"{
 			fmt.Println(strings.Join(splitcomm[1:], " "))
 		}else{
-			fmt.Println(command + ": Command not found")
+			fmt.Println(command + ": command not found")
 		}
 	}
 }
