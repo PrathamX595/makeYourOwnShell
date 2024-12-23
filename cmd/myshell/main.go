@@ -34,13 +34,17 @@ func main() {
 			if com == "exit" || com == "echo" || com == "type" {
 				fmt.Println(com + " is a shell builtin")
 			} else {
+				found := false
 				for _, val := range Paths {
 					exe := val + "/" + com
-					if _, err := os.Stat(exe); err == nil {
+					file, _ := os.Stat(exe)
+					if val == file.Name(){
 						fmt.Println(com + " is " + exe)
-					}else{
-						fmt.Println(com + ": not found")
+						found = true
 					}
+				}
+				if(!found){
+					fmt.Println(com + ": not found")
 				}
 			}
 		} else {
