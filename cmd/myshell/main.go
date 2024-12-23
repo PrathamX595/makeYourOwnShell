@@ -38,7 +38,7 @@ func main() {
 					files, _ := os.ReadDir(val)
 					for _, f := range files {
 						if com == f.Name() {
-							fmt.Println(com + " is " + val + com)
+							fmt.Println(com + " is " + val +"/"+ com)
 						} else {
 							fmt.Println(com + ": not found")
 						}
