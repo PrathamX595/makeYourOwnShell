@@ -37,11 +37,11 @@ func main() {
 				found := false
 				for _, val := range Paths {
 					exe := val + "/" + com
-					file, _ := os.Stat(exe)
-					if val == file.Name(){
-						fmt.Println(com + " is " + exe)
-						found = true
-					}
+					file, err := os.Stat(exe)
+                if err == nil && val == file.Name() {
+                    fmt.Println(com + " is " + exe)
+                    found = true
+                }
 				}
 				if(!found){
 					fmt.Println(com + ": not found")
