@@ -35,15 +35,12 @@ func main() {
 				fmt.Println(com + " is a shell builtin")
 			} else {
 				for _, val := range Paths {
-					files, _ := os.ReadDir(val)
-					for _, f := range files {
-						if com == f.Name() {
-							fmt.Println(com + " is " + val +"/"+ com)
-						} else {
-							fmt.Println(com + ": not found")
-						}
+					exe := val + "/" + com
+					if _, err := os.Stat(exe); err == nil {
+						fmt.Println(com + " is " + exe)
+					}else{
+						fmt.Println(com + ": not found")
 					}
-
 				}
 			}
 		} else {
