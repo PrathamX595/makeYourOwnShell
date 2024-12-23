@@ -10,7 +10,6 @@ import (
 
 func main() {
 	finished := false
-
 	// Wait for user input
 	for !finished {
 		fmt.Fprint(os.Stdout, "$ ")
@@ -26,9 +25,16 @@ func main() {
 			finished = true
 			code, _ := strconv.ParseInt(splitcomm[1], 10, 64)
 			os.Exit(int(code))
-		}else if command == "echo"{
+		} else if command == "echo" {
 			fmt.Println(strings.Join(splitcomm[1:], " "))
-		}else{
+		} else if command == "type" {
+			com := (splitcomm[1])
+			if com == "exit" || com == "echo" {
+				fmt.Println(com + " is a shell builtin")
+			}else{
+				fmt.Println(com + ": not found")
+			}
+		} else {
 			fmt.Println(command + ": command not found")
 		}
 	}
