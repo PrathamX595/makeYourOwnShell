@@ -16,7 +16,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Error reading input:", err)
 		os.Exit(1)
 	}
-	command = strings.TrimSpace(command) + " : command not found"
+	command = strings.TrimSpace(command) + ": command not found"
 	fmt.Println(command)
 
 }
