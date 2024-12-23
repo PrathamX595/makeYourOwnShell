@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -36,14 +37,15 @@ func main() {
 			} else {
 				found := false
 				for _, val := range Paths {
-					exe := val + "/" + com
+					exe := filepath.Join(val, com)
 					file, err := os.Stat(exe)
-                if err == nil && val == file.Name() {
-                    fmt.Println(com + " is " + exe)
-                    found = true
-                }
+					if err == nil && !file.IsDir() {
+						fmt.Println(com + " is " + exe)
+						found = true
+						break
+					}
 				}
-				if(!found){
+				if !found {
 					fmt.Println(com + ": not found")
 				}
 			}
