@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
@@ -12,7 +11,7 @@ import (
 func main() {
 	finished := false
 	Path := os.Getenv("PATH")
-	Paths := strings.Split(Path, ";")
+	Paths := strings.Split(Path, ":")
 	// Wait for user input
 	for !finished {
 		fmt.Fprint(os.Stdout, "$ ")
@@ -32,21 +31,20 @@ func main() {
 			fmt.Println(strings.Join(splitcomm[1:], " "))
 		} else if command == "type" {
 			com := (splitcomm[1])
-			if com == "exit" || com == "echo" || com == "type"{
+			if com == "exit" || com == "echo" || com == "type" {
 				fmt.Println(com + " is a shell builtin")
-			}else{
-				for _ , val := range Paths{
-					files ,_ := ioutil.ReadDir(val)
-					for _ , f := range files{
-						if com == f.Name(){
-							fmt.Println(com + "is" + val + com)
-						}else{
+			} else {
+				for _, val := range Paths {
+					files, _ := os.ReadDir(val)
+					for _, f := range files {
+						if com == f.Name() {
+							fmt.Println(com + " is " + val + com)
+						} else {
 							fmt.Println(com + ": not found")
 						}
 					}
 
 				}
-				fmt.Println(com + ": not found")
 			}
 		} else {
 			fmt.Println(command + ": command not found")
