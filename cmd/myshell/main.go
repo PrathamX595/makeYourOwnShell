@@ -13,7 +13,6 @@ func main() {
 	finished := false
 	Path := os.Getenv("PATH")
 	Paths := strings.Split(Path, ":")
-	// Wait for user input
 	for !finished {
 		fmt.Fprint(os.Stdout, "$ ")
 		input, err := bufio.NewReader(os.Stdin).ReadString('\n')
