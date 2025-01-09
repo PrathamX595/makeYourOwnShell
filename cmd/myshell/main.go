@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -23,13 +24,14 @@ func main() {
 		input = strings.TrimSpace(input)
 		splitcomm := strings.Split(input, " ")
 		command := splitcomm[0]
-		if command == "exit" {
+		switch command {
+		case "exit":
 			finished = true
 			code, _ := strconv.ParseInt(splitcomm[1], 10, 64)
 			os.Exit(int(code))
-		} else if command == "echo" {
+		case "echo":
 			fmt.Println(strings.Join(splitcomm[1:], " "))
-		} else if command == "type" {
+		case "type":
 			com := (splitcomm[1])
 			if com == "exit" || com == "echo" || com == "type" {
 				fmt.Println(com + " is a shell builtin")
@@ -48,8 +50,15 @@ func main() {
 					fmt.Println(com + ": not found")
 				}
 			}
-		} else {
-			fmt.Println(command + ": command not found")
+		default:
+			cmd := exec.Command(command, splitcomm[1:]...)
+			cmd.Stderr = os.Stderr
+			cmd.Stdout = os.Stdout
+			err := cmd.Run()
+
+			if err != nil {
+				fmt.Printf("%s: command not found\n", splitcomm[0])
+			}
 		}
 	}
 }
