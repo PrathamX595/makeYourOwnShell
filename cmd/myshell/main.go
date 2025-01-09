@@ -33,7 +33,7 @@ func main() {
 			fmt.Println(strings.Join(splitcomm[1:], " "))
 		case "type":
 			com := (splitcomm[1])
-			if com == "exit" || com == "echo" || com == "type" {
+			if com == "exit" || com == "echo" || com == "type" || com =="pwd" {
 				fmt.Println(com + " is a shell builtin")
 			} else {
 				found := false
