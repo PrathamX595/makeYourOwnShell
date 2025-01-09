@@ -33,7 +33,7 @@ func main() {
 			fmt.Println(strings.Join(splitcomm[1:], " "))
 		case "type":
 			com := (splitcomm[1])
-			if com == "exit" || com == "echo" || com == "type" || com =="pwd" {
+			if com == "exit" || com == "echo" || com == "type" || com =="pwd" || com =="cd"{
 				fmt.Println(com + " is a shell builtin")
 			} else {
 				found := false
@@ -56,6 +56,11 @@ func main() {
 				fmt.Println(err)
 			}
 			fmt.Println(dir)
+		case "cd":
+			err := os.Chdir(splitcomm[1])
+			if err != nil {
+				fmt.Println(err)
+			}
 		default:
 			cmd := exec.Command(command, splitcomm[1:]...)
 			cmd.Stderr = os.Stderr
