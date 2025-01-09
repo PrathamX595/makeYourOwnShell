@@ -57,9 +57,16 @@ func main() {
 			}
 			fmt.Println(dir)
 		case "cd":
-			err := os.Chdir(splitcomm[1])
-			if err != nil {
-				fmt.Printf("%s: %s: No such file or directory\n", command, splitcomm[1])
+			if splitcomm[1] == "~" {
+				err := os.Chdir(os.Getenv("HOME"))
+				if err != nil {
+					fmt.Printf("%s: %s: No such file or directory\n", command, splitcomm[1])
+				}
+			}else{
+				err := os.Chdir(splitcomm[1])
+				if err != nil {
+					fmt.Printf("%s: %s: No such file or directory\n", command, splitcomm[1])
+				}
 			}
 		default:
 			cmd := exec.Command(command, splitcomm[1:]...)
