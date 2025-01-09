@@ -68,7 +68,7 @@ func main() {
 			err := cmd.Run()
 
 			if err != nil {
-				fmt.Printf("%s: command not found\n", splitcomm[0])
+				fmt.Printf("%s: %s command not found\n", splitcomm[0], splitcomm[1])
 			}
 		}
 	}
