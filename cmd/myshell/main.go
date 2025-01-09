@@ -59,7 +59,7 @@ func main() {
 		case "cd":
 			err := os.Chdir(splitcomm[1])
 			if err != nil {
-				fmt.Printf("%s: No such file or directory", command)
+				fmt.Printf("%s: %s: No such file or directory", command, splitcomm[1])
 			}
 		default:
 			cmd := exec.Command(command, splitcomm[1:]...)
@@ -68,7 +68,7 @@ func main() {
 			err := cmd.Run()
 
 			if err != nil {
-				fmt.Printf("%s: %s command not found\n", splitcomm[0], splitcomm[1])
+				fmt.Printf("%s: command not found\n", splitcomm[0])
 			}
 		}
 	}
