@@ -30,8 +30,22 @@ func main() {
 			fmt.Fprintln(os.Stderr, "Error reading input:", err)
 			os.Exit(1)
 		}
-		input = strings.TrimSpace(input)
-		splitcomm := strings.Split(input, " ")
+		trim := strings.Trim(input, "\r\n")
+		var splitcomm []string
+		for {
+			start := strings.Index(trim , `'`)
+			if start == -1 {
+				splitcomm = append(splitcomm, strings.Fields(trim)...)
+				break
+			}
+			splitcomm = append(splitcomm, strings.Fields(trim[:start])...)
+			trim = trim[start+1:]
+			end := strings.LastIndex(trim, `'`)
+			commi := trim[:end]
+			splitcomm = append(splitcomm, commi)
+			trim = trim[end+1:]
+		}
+		
 		command := splitcomm[0]
 		switch command {
 		case "exit":
