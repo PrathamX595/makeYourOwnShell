@@ -12,7 +12,16 @@ import (
 
 func main() {
 	finished := false
+	found := false
 	Path := os.Getenv("PATH")
+	cmdArr := [...]string{
+		"exit",
+		"echo",
+		"type",
+		"pwd",
+		"cd",
+		"cat",
+	}
 	Paths := strings.Split(Path, ":")
 	for !finished {
 		fmt.Fprint(os.Stdout, "$ ")
@@ -33,10 +42,14 @@ func main() {
 			fmt.Println(strings.Join(splitcomm[1:], " "))
 		case "type":
 			com := (splitcomm[1])
-			if com == "exit" || com == "echo" || com == "type" || com =="pwd" || com =="cd"{
-				fmt.Println(com + " is a shell builtin")
-			} else {
-				found := false
+			for _, val := range cmdArr {
+				if com == val {
+					fmt.Println(com + " is a shell builtin")
+					found = true
+				}
+			}
+			if !found {
+				found = false
 				for _, val := range Paths {
 					exe := filepath.Join(val, com)
 					file, err := os.Stat(exe)
@@ -62,7 +75,7 @@ func main() {
 				if err != nil {
 					fmt.Printf("%s: %s: No such file or directory\n", command, splitcomm[1])
 				}
-			}else{
+			} else {
 				err := os.Chdir(splitcomm[1])
 				if err != nil {
 					fmt.Printf("%s: %s: No such file or directory\n", command, splitcomm[1])
