@@ -20,7 +20,6 @@ func main() {
 		"type",
 		"pwd",
 		"cd",
-		"cat",
 	}
 	Paths := strings.Split(Path, ":")
 
