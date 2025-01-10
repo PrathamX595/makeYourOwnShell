@@ -53,7 +53,14 @@ func main() {
 			code, _ := strconv.ParseInt(splitcomm[1], 10, 64)
 			os.Exit(int(code))
 		case "echo":
-			fmt.Println(strings.Join(splitcomm[1:], " "))
+			args := splitcomm[1:]
+			if len(args) == 0 {
+				fmt.Fprintln(os.Stdout)
+			}
+			for i := 0; i < len(args)-1; i++ {
+				fmt.Fprintf(os.Stdout, "%s ", args[i])
+			}
+			fmt.Fprintln(os.Stdout, args[len(args)-1])
 		case "type":
 			com := (splitcomm[1])
 			for _, val := range cmdArr {
