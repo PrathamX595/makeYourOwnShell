@@ -40,7 +40,7 @@ func main() {
 			}
 			splitcomm = append(splitcomm, strings.Fields(trim[:start])...)
 			trim = trim[start+1:]
-			end := strings.LastIndex(trim, `'`)
+			end := strings.Index(trim, `'`)
 			commi := trim[:end]
 			splitcomm = append(splitcomm, commi)
 			trim = trim[end+1:]
