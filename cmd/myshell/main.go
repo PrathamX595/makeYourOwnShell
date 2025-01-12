@@ -32,7 +32,6 @@ func main() {
 		}
 		trim := strings.Trim(input, "\r\n")
 
-		// Custom parser that preserves spaces inside quotes
 		var splitcomm []string
 		var tokenBuilder strings.Builder
 		inQuotes := false
