@@ -35,13 +35,18 @@ func main() {
 		var splitcomm []string
 		var tokenBuilder strings.Builder
 		inQuotes := false
+		in2Qoutes := false
 		for i := 0; i < len(trim); i++ {
 			ch := trim[i]
-			if ch == '\'' {
+			if ch == '\'' && !in2Qoutes {
 				inQuotes = !inQuotes
 				continue
 			}
-			if ch == ' ' && !inQuotes {
+			if ch =='"'{
+				in2Qoutes = !in2Qoutes
+				continue
+			}
+			if ch == ' ' && !inQuotes{
 				if tokenBuilder.Len() > 0 {
 					splitcomm = append(splitcomm, tokenBuilder.String())
 					tokenBuilder.Reset()
