@@ -55,8 +55,6 @@ func main() {
 				continue
 			}
 			if ch == '\\' && !inAny {
-				var temp byte = ' '
-				tokenBuilder.WriteByte(temp)
 				continue
 			}
 			tokenBuilder.WriteByte(ch)
