@@ -62,10 +62,8 @@ func main() {
 				}
 			}
 			if ch == '\\' && !inAny {
-				if !slashed{
 					slashed = !slashed
 					continue
-				}
 			}
 			tokenBuilder.WriteByte(ch)
 		}
