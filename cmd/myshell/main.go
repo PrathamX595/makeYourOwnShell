@@ -42,14 +42,18 @@ func main() {
 			if ch == '\'' && !in2Qoutes {
 				if !slashed{
 					inQuotes = !inQuotes
+					slashed = false
 					continue
 				}
+				slashed = false
 			}
 			if ch =='"'{
 				if !slashed{
 					in2Qoutes = !in2Qoutes
+					slashed = false
 					continue
 				}
+				slashed = false
 			}
 			inAny := (inQuotes || in2Qoutes)
 			if ch == ' ' && !inAny{
@@ -58,8 +62,10 @@ func main() {
 						splitcomm = append(splitcomm, tokenBuilder.String())
 						tokenBuilder.Reset()
 					}
+					slashed = false
 					continue
 				}
+				slashed = false
 			}
 			if ch == '\\' && !inAny {
 					slashed = !slashed
