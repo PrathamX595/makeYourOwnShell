@@ -40,12 +40,16 @@ func main() {
 		for i := 0; i < len(trim); i++ {
 			ch := trim[i]
 			if ch == '\'' && !in2Qoutes {
-				inQuotes = !inQuotes
-				continue
+				if !slashed{
+					inQuotes = !inQuotes
+					continue
+				}
 			}
 			if ch =='"'{
-				in2Qoutes = !in2Qoutes
-				continue
+				if !slashed{
+					in2Qoutes = !in2Qoutes
+					continue
+				}
 			}
 			inAny := (inQuotes || in2Qoutes)
 			if ch == ' ' && !inAny{
@@ -58,8 +62,10 @@ func main() {
 				}
 			}
 			if ch == '\\' && !inAny {
-				slashed = !slashed
-				continue
+				if !slashed{
+					slashed = !slashed
+					continue
+				}
 			}
 			tokenBuilder.WriteByte(ch)
 		}
