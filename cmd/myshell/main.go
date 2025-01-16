@@ -47,7 +47,7 @@ func main() {
 				}
 				slashed = false
 			}
-			if ch =='"'{
+			if ch =='"' && !inQuotes{
 				if !slashed{
 					in2Qoutes = !in2Qoutes
 					slashed = false
@@ -67,7 +67,7 @@ func main() {
 				}
 				slashed = false
 			}
-			if ch == '\\' && !inAny {
+			if ch == '\\' && !inQuotes {
 					slashed = !slashed
 					continue
 			}
