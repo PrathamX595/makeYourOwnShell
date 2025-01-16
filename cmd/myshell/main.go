@@ -46,7 +46,8 @@ func main() {
 				in2Qoutes = !in2Qoutes
 				continue
 			}
-			if ch == ' ' && !inQuotes{
+			inAny := (inQuotes || in2Qoutes)
+			if ch == ' ' && !inAny{
 				if tokenBuilder.Len() > 0 {
 					splitcomm = append(splitcomm, tokenBuilder.String())
 					tokenBuilder.Reset()
