@@ -36,6 +36,7 @@ func main() {
 		var tokenBuilder strings.Builder
 		inQuotes := false
 		in2Qoutes := false
+		slashed := false
 		for i := 0; i < len(trim); i++ {
 			ch := trim[i]
 			if ch == '\'' && !in2Qoutes {
@@ -48,13 +49,16 @@ func main() {
 			}
 			inAny := (inQuotes || in2Qoutes)
 			if ch == ' ' && !inAny{
-				if tokenBuilder.Len() > 0 {
-					splitcomm = append(splitcomm, tokenBuilder.String())
-					tokenBuilder.Reset()
+				if !slashed {
+					if tokenBuilder.Len() > 0 {
+						splitcomm = append(splitcomm, tokenBuilder.String())
+						tokenBuilder.Reset()
+					}
+					continue
 				}
-				continue
 			}
 			if ch == '\\' && !inAny {
+				slashed = !slashed
 				continue
 			}
 			tokenBuilder.WriteByte(ch)
