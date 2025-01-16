@@ -67,9 +67,14 @@ func main() {
 				}
 				slashed = false
 			}
-			if ch == '\\' && !inQuotes {
+			if ch == '\\' {
+				if in2Qoutes {
 					slashed = !slashed
 					continue
+				} else if !inQuotes {
+					slashed = !slashed
+					continue
+				}
 			}
 			tokenBuilder.WriteByte(ch)
 		}
